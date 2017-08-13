@@ -131,7 +131,7 @@ class Index extends CommonClass
 									<td class="th-head3">
 										<?php echo preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', substr($myresult['description'], 0, $this->CFG['site']['home']['desc'])).'&nbsp;&nbsp;<a  href="javascript:void(0)" class="btnShow" data= '.$link_id.' />... </a>';   ?>
 									</td>
-									<td class="th-head4"><a target="_blanck" href="<?php echo $myresult['link'];?>">link</a></td>
+									<!-- <td class="th-head4"><a target="_blanck" href="<?php echo $myresult['link'];?>">link</a></td> -->
 								</tr>
 								<div class="dialog<?php echo $x1; ?>" style="display: none;text-align: center;">
 		    						<?php echo preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', $myresult['description']); ?>
