@@ -56,8 +56,51 @@ HEADER START
 }
 
 
+.dis-line-option li {
+	display: inline-block;
+}
+.dis-line-option span {
+    background-color: #1ccb6b;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block ;
+    font-size: 14px;
+    margin: 10px 0 0;
+    padding: 8px 10px;
+	cursor:pointer;
+}    
 
+.grid-search-input{
+	width: 58% !important;
+}
 
+.grid-serch-btn{
+	width: 42% !important;
+}
+
+.grid-tab-top-sec{
+	padding :5px !important;
+}
+.grid-serch-sec{
+	margin :0px !important;
+}
+
+.grid-heading{
+	color: #000000;
+    text-decoration: underline;
+    padding-left: 19px;
+}
+
+.grid-table tr{
+	display : table-row !important;
+	width : auto !important;
+	 
+}
+
+.grid-table tr th{
+	min-width: 133px;
+    max-width: 136px;
+}
 
 
 

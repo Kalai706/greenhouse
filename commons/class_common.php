@@ -183,7 +183,7 @@ class CommonClass
 					$sql .= " ORDER BY ".$orderbyfield." ".$order;
 				if($limit)
 					$sql .= " LIMIT ".$limit;
-				//echo $sql;die("res");
+				//echo $sql;
 				$result = mysqli_query($this->dbObj,$sql);
 				$row = false;
 				while($results=mysqli_fetch_assoc($result))

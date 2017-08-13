@@ -80,6 +80,20 @@
 			        	}
 			    });
 			}
+		function fetchrecords(table_name)
+			{
+			    $.ajax
+			    ({					
+			        type: "POST",
+			        url: "index.php",
+			        data: { 'keywords': 'fetch_grid_record','grid_table_name':table_name},
+			        success: function(msg)
+			        	{
+			        		$(".dynamicdatagrid").html(msg);
+			        	}
+			    });
+			}    
+
 		$(document).ready(function() {
 			setTimeout(function() {
 			    $("#refreshrecord1").trigger('click');

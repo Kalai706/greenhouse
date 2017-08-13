@@ -80,7 +80,46 @@ class Index extends CommonClass
 						$this->getGrid($row,$val,$link_id);
 						$link_id++;
 					}
-			}	
+			}
+		
+		/**
+		 * Display the alert and predict data from the table
+		 */
+		public function displayAlertPredictData($table_name =''){
+			$table_name = ($table_name != '')?$table_name:$this->CFG['site']['alert_grid']['default'];
+			$row = $this->getTabelRecords($table_name,$this->CFG['site']['home']['limit']);	
+			$this->getAlertGridTemplate($row);
+		}
+		
+		/**
+		 * form the content for the alert grid based on the record given
+		 */
+		 public function getAlertGridTemplate($records){
+			 $content = '';
+			 if($records!='' && count($records) >0){
+				foreach ($records as $key=>$val){					
+					$content .= '<tr>';	
+					$content .= '<td>'.$val['Symbol'].'</td>';	
+					$content .= '<td> - </td>';	
+					$content .= '<td> - </td>';	
+					$content .= '<td>'.$val['Target_date'].'</td>';	
+					$content .= '<td>'.$val['Partners'].'</td>';
+					$content .= '<td>'.$val['EntryPoint'].'</td>';		
+					$content .= '<td>'.$val['ExitPoint'].'</td>';
+					//$content .= '<td>'.$val['Prediction'].'</td>';
+					$content .= '<td>'.$val['Detail'].'</td>';	
+					$content .= '<td>'.$val['Link'].'</td>';	
+					$content .= '<td>'.$val['CRE_ON'].'</td>';	
+					$content .= '<td>'.$val['CRE_BY'].'</td>';	
+					$content .= '<td>'.$val['LAST_UPDT_ON'].'</td>';	
+					$content .= '<td>'.$val['LAST_UPDT_BY'].'</td>';	
+					$content .= '</tr>';		
+				}
+			 }else{
+				 $content .= '<tr><td colspan="13">No Record Found</td></tr>';
+			 }
+			 echo $content;
+		 }
 			
 		/**
 		 * To Load the grid data
@@ -179,6 +218,7 @@ class Index extends CommonClass
 $index = new Index();
 $index->setFormField('table_name','');
 $index->setFormField('keywords','');
+$index->setFormField('grid_table_name','');
 $index->setFormField('grid_count','');
 $index->setFormField('grid_table_names',implode(",",$CFG['site']['grid']['home']));
 $index->sanitizeFormInputs($_REQUEST);
@@ -189,6 +229,9 @@ getMetaTags('metakeyword','Home');
 if($index->isFormPOSTed($_POST,'table_name'))
 {
 	$index->getAjaxSearchPlanet();
+	exit();
+}else if($index->isFormPOSTed($_POST,'keywords') && $index->getFormField('keywords') == "fetch_grid_record"){
+	$index->displayAlertPredictData($index->getFormField('grid_table_name'));
 	exit();
 }
 //------------------------------------HTML code start from here -------->>>>>>>>//
@@ -212,6 +255,109 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 </div>
 <?php /* Load the grid*/?> 
 <div class="main">
+	<!-- New Grid starts here -->
+	<div class="container1">		
+		<div class=" col-md-6 col-sm-6 col-xs-12">
+		<span class="grid-heading">WatchList</span>
+		<div class="row-fluid">			
+			<div class=" col-md-6 col-sm-6 col-xs-12">
+				<div class="tab-top-sec grid-tab-top-sec">
+					<div class="serch-sec grid-serch-sec">
+							<input class="serch-input grid-search-input" type="text" placeholder="Type Symbol" />
+							<input type="button" class="serch-btn grid-serch-btn" value="Search Plant" />
+						</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<ul class="dis-line-option">
+					<li><span>INSERT</span></li>
+					<li><span>UPDATE</span></li>
+					<li><span>DELETE</span></li>
+					<li><span>REFRESH</span></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="col-md-12" style="overflow-x:scroll">
+		<table class="table table-responsive table-bordered grid-table">
+					<thead>
+						<tr>
+							<th>Symbol</th>
+							<th>KeyInfo</th>
+							<th>Price</th>
+							<th>Start Date</th>
+							<th>Partners</th>
+							<th>Entry Point</th>
+							<th>Exit Point</th>
+							<th>Email</th>
+							<th>Action Needed</th>
+							<th>Created On</th>
+							<th>Created By</th>
+							<th>Last Updated on</th>
+							<th>Last Updated By</th>
+							
+						</tr>
+					</thead>
+					<tbody class="dynamicdata"> 
+						<?php echo $index->displayAlertPredictData($CFG['db']['tbl']['watch_list']);?>									
+					</tbody>
+				</table>
+				</div>
+			
+		</div>
+		<div class=" col-md-6 col-sm-6 col-xs-12">
+			<span class="grid-heading">Alerts and predictions</span>
+			<div class="row-fluid">			
+			<div class=" col-md-6 col-sm-6 col-xs-12">
+				<div class="tab-top-sec grid-tab-top-sec">
+					<div class="serch-sec grid-serch-sec">
+							<input class="serch-input grid-search-input" type="text" placeholder="Type Symbol" />
+							<input type="button" class="serch-btn grid-serch-btn" value="Search Plant" />
+						</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<ul class="dis-line-option">
+					<!-- <li><a href="#" onclick="fetchrecords('<?php echo $CFG['db']['tbl']['alerts'];?>');">Alert</a></li>
+					<li><a href="#" onclick="fetchrecords('<?php echo $CFG['db']['tbl']['predictions'];?>');">Predict</a></li>
+					<li><a href="#" onclick="fetchrecords('<?php echo $CFG['db']['tbl']['shortideas'];?>');">Short Ideas</a></li> -->
+					<li><span onclick="fetchrecords('<?php echo $CFG['db']['tbl']['alerts'];?>');">Alert</span></li>
+					<li><span onclick="fetchrecords('<?php echo $CFG['db']['tbl']['predictions'];?>');">Predict</span></li>
+					<li><span onclick="fetchrecords('<?php echo $CFG['db']['tbl']['shortideas'];?>');">Short Ideas</span></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="col-md-12" style="overflow-x:scroll">
+		<table class="table table-responsive table-bordered grid-table">
+					<thead>
+						<tr>
+							<th>Symbol</th>
+							<th>KeyInfo</th>
+							<th>Price</th>
+							<th>Start Date</th>
+							<th>Partners</th>
+							<th>Entry Point</th>
+							<th>Exit Point</th>
+							<th>Email</th>
+							<th>Action Needed</th>
+							<th>Created On</th>
+							<th>Created By</th>
+							<th>Last Updated on</th>
+							<th>Last Updated By</th>
+							
+						</tr>
+					</thead>
+					<tbody class="dynamicdatagrid"> 
+						<?php echo $index->displayAlertPredictData();?>									
+					</tbody>
+				</table>
+				</div>
+			
+		</div>
+		
+	</div>
+	<!-- New Grid ends here -->
 	<div class="container1">
 		<?php $index->getDataFromTable();?>
 	</div>
