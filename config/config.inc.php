@@ -56,6 +56,6 @@ $CFG['site']['home']['limit'] = 30;
 
 //Pages desc limit
 $CFG['site']['home']['title'] = 30;
-$CFG['site']['home']['desc'] = 30;
+$CFG['site']['home']['desc'] = 300;
 $CFG['site']['home']['desc_pattern'] = '/[\x00-\x1F\x80-\xFF]/';
 ?>

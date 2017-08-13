@@ -97,7 +97,6 @@ class Index extends CommonClass
 							<th class="th-head">Plant</th>
 							<th class="th-head2">Title</th>
 							<th class="th-head3">Note</th>
-							<th class="th-head4">Link </th>
 						</tr>
 					</thead>
 					<tbody class="testDiv2"> 
@@ -120,7 +119,8 @@ class Index extends CommonClass
 					                $y1 = '1_'.$link_id;
 					                ?>                
 									<td class="th-head2">
-										<?php  echo preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', substr($myresult['description'], 0, $this->CFG['site']['home']['desc'])).'&nbsp;&nbsp;<a  href="javascript:void(0)" class="btnShow1" data= '.$link_id.' />... </a>';?>
+										<?php  																			
+										echo '<a target="_blank" href="'.$myresult['link'].'">'.preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', substr($myresult['description'], 0, $this->CFG['site']['home']['desc'])).'&nbsp;&nbsp; </a>';?>
 									</td>
 									<div class="dialog1<?php echo $y1; ?>" style="display: none;text-align: center;">
 		                				<?php echo preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', $myresult['description']); ?>
@@ -131,7 +131,6 @@ class Index extends CommonClass
 									<td class="th-head3">
 										<?php echo preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', substr($myresult['description'], 0, $this->CFG['site']['home']['desc'])).'&nbsp;&nbsp;<a  href="javascript:void(0)" class="btnShow" data= '.$link_id.' />... </a>';   ?>
 									</td>
-									<!-- <td class="th-head4"><a target="_blanck" href="<?php echo $myresult['link'];?>">link</a></td> -->
 								</tr>
 								<div class="dialog<?php echo $x1; ?>" style="display: none;text-align: center;">
 		    						<?php echo preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', $myresult['description']); ?>
