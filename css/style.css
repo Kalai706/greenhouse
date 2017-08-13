@@ -1,0 +1,265 @@
+body{
+	 font-family: "Source Sans Pro";
+}
+p {
+  font-size: 16px;
+}
+section {
+    clear: both;
+}
+ul{
+     list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+img {
+  max-width: 100%;
+}
+/*==================================
+HEADER START
+==================================*/
+
+.logo img {
+  max-width: 200px;
+  padding: 6px 0 28px;
+}
+.dis-inline > li {
+  display: inline-block;
+}
+.dis-inline span {
+  color: #ffffff;
+  display: block;
+}
+.dis-inline span {
+  color: #000000;
+  display: block;
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+.dis-inline > li {
+  display: inline-block;
+  margin: 0 3%;
+}
+.dis-inline a {
+  background-color: #1ccb6b;
+  border-radius: 4px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  margin: 10px 0 0;
+  padding: 10px 20px;
+}
+.logo h1 {
+  color: #1ccb6b;
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+.tab-top-sec {
+  background-color: #1ccb6b;
+  border-radius: 4px 4px 0 0;
+  float: left;
+  padding: 10px;
+  width: 100%;
+}
+.serch-sec {
+  float: left;
+  margin: 10px 0 0;
+  width: 100%;
+}
+.links-btn {
+  background-color: #009f3f;
+  border: medium none;
+  border-radius: 4px;
+  color: #ffffff;
+  float: right;
+  font-size: 14px;
+  padding: 5px 20px;
+}
+.serch-input {
+  border: medium none;
+  border-radius: 4px 0 0 4px;
+  float: left;
+  height: 34px;
+  padding: 0 10px;
+  width: 70%;
+}
+.serch-btn {
+  background-color: #009f3f;
+  border: medium none;
+  border-radius: 0 4px 5px 0;
+  color: #ffffff;
+  float: right;
+  font-size: 14px;
+  height: 35px;
+  padding: 0;
+  text-transform: uppercase;
+  width: 30%;
+}
+.title-gar {
+  color: #ffffff;
+  display: inline-block;
+  font-size: 18px;
+  margin: 5px 0 0;
+}
+
+table.scroll {
+    width: 100%;
+    border-spacing: 0;
+}
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+thead tr th { 
+    height: 30px;
+    line-height: 30px;
+}
+
+/* table.scroll tbody {
+    /*height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+height:1717px!important;
+} */
+
+
+/* tbody td, thead th {
+    width: 20%;
+} */
+
+tbody td:last-child, thead th:last-child {
+    border-right: none;
+}
+.table tr {
+  display: table;
+  width: 100%;
+}
+
+
+.main {
+  margin-top: 45px;
+}
+
+.main .col-md-4.col-sm-4.col-xs-12 {
+  padding: 20px 15px;
+}
+
+
+@media (min-width: 1900px) and (max-width: 1920px) { 
+
+table.scroll tbody {
+  height: 290px;
+}
+.container {
+  width: 1520px;
+}
+
+}
+@media (max-width: 767px) { 
+
+}
+
+.th-head {
+    width: 45px;
+    word-break: break-all;
+}
+.th-head2 {
+    width: 116px;
+    word-break: break-all;
+}
+.th-head3 {
+  width: 120px;
+  word-break: break-all;
+}
+.th-head4 {
+  width: 35px;
+   word-break: break-all;
+}
+/*.mask{
+  display: none; 
+}
+
+/*.mask .ajax{
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative; 
+  z-index: 1000; 
+  background-image: url ("loader.png");
+}*/
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+display: none;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+/* The Close Button */
+.close {
+    color: #1ccb6b;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-content h1{
+color:#1ccb6b;
+}
+.container1{
+  padding: 0 20px;
+}
+
+td {
+    border: 1px solid #dddddd;
+    line-height: 1.42857;
+    padding: 8px;
+    vertical-align: top;
+}

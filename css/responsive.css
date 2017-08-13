@@ -1,0 +1,60 @@
+@media (min-width: 1025px) and (max-width: 1200px) {
+}
+@media (min-width: 992px) and (max-width: 1024px) {
+}
+@media (min-width: 768px) and (max-width: 991px) { 
+}
+@media (max-width: 767px) { 
+/*==================================
+HAEDER
+==================================*/
+.banner-section {
+    text-align: center;
+}
+.title-head {
+  font-size: 28px;
+}
+.sub-title {
+  font-size: 15px;
+}
+.banner-section button {
+    margin-left: 0;
+}
+/*==================================
+LEARN BOOK
+==================================*/
+.learn-book-section {
+    text-align: center;
+}
+/*==================================
+DOWNLOAD CHAPTER
+==================================*/
+.download-chapter-section {
+  text-align: center;
+}
+/*==================================
+LIFESTYLE ENTREPRENEUR:
+==================================*/
+.lifestle-section {
+  text-align: center;
+}
+.lifestle-section img {
+  margin-bottom: 15px;
+}
+/*==================================
+ABOUT AUTHER
+==================================*/
+.about-auther-section {
+  text-align: center;
+}
+
+}
+@media (min-width: 560px) and (max-width: 775px) {   
+}
+@media (min-width: 641px) and (max-width: 767px) {  
+}
+@media (min-width: 481px) and (max-width: 640px) {  
+}
+@media (min-width: 320px) and (max-width: 480px) {   
+}
+
