@@ -35,6 +35,14 @@ class Index extends CommonClass
 					<?php
 						$i++; 
 					}
+					
+					/** ToDo : Temp added the 6 more header button to reflect the WF Design**/
+					echo '<li><span>Garden7</span><a href="#">REFRESH</a></li>';
+					echo '<li><span>Garden8</span><a href="#">REFRESH</a></li>';
+					echo '<li><span>Garden9</span><a href="#">REFRESH</a></li>';
+					echo '<li><span>Garden10</span><a href="#">REFRESH</a></li>';
+					echo '<li><span>Garden11</span><a href="#">REFRESH</a></li>';
+					echo '<li><span>Garden12</span><a href="#">REFRESH</a></li>';
 			}
 
 		/**
@@ -76,8 +84,13 @@ class Index extends CommonClass
 				$link_id = 1;				
 				foreach($this->CFG['site']['grid']['home'] as $key=>$val)
 					{
-						$row = $this->getTabelRecords($val,$this->CFG['site']['home']['limit']);						
-						$this->getGrid($row,$val,$link_id);
+						$row = $this->getTabelRecords($val,$this->CFG['site']['home']['limit']);	
+						if($row == ''){
+							$this->getGrid($row,$val,$link_id,"No Record Found");
+						}else{
+							$this->getGrid($row,$val,$link_id);
+						}
+						
 						$link_id++;
 					}
 			}
@@ -86,8 +99,9 @@ class Index extends CommonClass
 		 * Display the alert and predict data from the table
 		 */
 		public function displayAlertPredictData($table_name =''){
+			$whr_condition = '`Target_date` > date_sub(now(), interval 5 day)';
 			$table_name = ($table_name != '')?$table_name:$this->CFG['site']['alert_grid']['default'];
-			$row = $this->getTabelRecords($table_name,$this->CFG['site']['home']['limit']);	
+			$row = $this->getTabelRecords($table_name,$this->CFG['site']['home']['limit'],false,'Target_date','ASC',$whr_condition);	
 			$this->getAlertGridTemplate($row);
 		}
 		
@@ -149,6 +163,7 @@ class Index extends CommonClass
 				else
 					{	
 						$x=1;
+						if($mydata !="" && count($mydata)>0){
 						foreach ($mydata as $myresult)
 				 			{ 	
 				 			?>
@@ -177,6 +192,9 @@ class Index extends CommonClass
 							<?php 
 				        	$x++; 
 				 			}
+						}else{
+							echo "<tr><td>No Record Found</td></tr>";
+						}
 					}			
 		 		?>
 		 			</tbody>
@@ -240,7 +258,7 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 ?>
 <?php /* Top referesh start from here*/?> 
 <div class="header">
-	<div class="container">
+	<div class="container1">
 		<div class="logo col-md-12 col-sm-12 col-xs-12 text-center">
 			<a href="#"><img src="images/logo.png"/></a>
 		</div>
@@ -278,7 +296,7 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 			</div>
 		</div>
 		
-		<div class="col-md-12" style="overflow-x:scroll">
+		<div class="col-md-12 audittable">
 		<table class="table table-responsive table-bordered grid-table">
 					<thead>
 						<tr>
@@ -328,7 +346,7 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 			</div>
 		</div>
 		
-		<div class="col-md-12" style="overflow-x:scroll">
+		<div class="col-md-12 audittable" >
 		<table class="table table-responsive table-bordered grid-table">
 					<thead>
 						<tr>

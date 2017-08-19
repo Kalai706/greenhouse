@@ -38,7 +38,7 @@ HEADER START
 }
 .dis-inline > li {
   display: inline-block;
-  margin: 0 3%;
+  margin: 0 2px 0 6px;
 }
 .dis-inline a {
   background-color: #1ccb6b;
@@ -65,8 +65,8 @@ HEADER START
     color: #ffffff;
     display: inline-block ;
     font-size: 14px;
-    margin: 10px 0 0;
-    padding: 8px 10px;
+    margin: auto;
+    padding: 3px 3px;
 	cursor:pointer;
 }    
 
@@ -163,6 +163,13 @@ table.scroll thead { display: block; }
 thead tr th { 
     height: 30px;
     line-height: 30px;
+}
+
+.audittable{
+	overflow:auto;
+	margin-top: 5px;
+	min-height: 100px;
+	max-height: 200px;
 }
 
 /* table.scroll tbody {
