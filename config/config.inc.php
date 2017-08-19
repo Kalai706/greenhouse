@@ -1,5 +1,5 @@
 <?php
- 
+session_start();
 ini_set('default_charset','UTF-8');
 $CFG['parse_time']['start'] = explode(' ', microtime());
 //@todo improve time zone settings
@@ -39,6 +39,7 @@ $CFG['site']['project_path_relative'] = strrpos($CFG['site']['project_path_relat
 $CFG['site']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/')+1);
 
 require_once($CFG['site']['project_path'].'config/config_db.inc.php');
+require_once($CFG['site']['project_path'].'config/config.url.php');
 require_once($CFG['site']['project_path'].'config/config_tables.inc.php');
 require_once($CFG['site']['project_path'].'functions/dbConnection.php');
 require_once($CFG['site']['project_path'].'functions/function.php');

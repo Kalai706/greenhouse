@@ -116,7 +116,22 @@ class CommonClass
 			{
 				return $form_submit_name ? isset($post_arr[$form_submit_name]) : $post_arr;
 			}
-
+		
+		/**
+		 * LoginFormHandler::saveUserVarsInSession()
+		 *
+		 * To save the user information in session
+		 *
+		 * @param 		string $ip ip address
+		 * @return 		void
+		 * @access 		public
+		 */
+		public function saveUserVarsInSession()
+			{
+				$_SESSION = array(); //reset any variables present
+				$_SESSION['user']['is_logged_in'] = true;
+			}	
+			
 	/**
         * To santize the form fields
         *
@@ -191,6 +206,35 @@ class CommonClass
 						$row[]=$results;
 					}				
 				return $row;
+			}
+			
+		/**
+		* To get the common error message
+		*
+		* Use this method to get the common error message. Call this
+		* method in error page block to show the common error message
+		*
+		* @return 		string $this->common_error_message
+		* @access 		public
+		*/
+		public function getCommonErrorMsg()
+			{
+				return $this->common_error_message;
+			}
+			
+			/**
+		* To set the common error message
+		*
+		* Use this method to set the common error message. After
+		* submitting form, call this method to set the error message
+		*
+		* @param 		string $err_msg common error message
+		* @return 		string
+		* @access 		public
+		*/
+		public function setCommonErrorMsg($err_msg)
+			{
+				$this->common_error_message = $err_msg;
 			}
 	}
 
