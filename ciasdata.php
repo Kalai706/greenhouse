@@ -41,8 +41,6 @@ class Index extends CommonClass
 					echo '<li><span>Garden8</span><a href="#">REFRESH</a></li>';
 					echo '<li><span>Garden9</span><a href="#">REFRESH</a></li>';
 					echo '<li><span>Garden10</span><a href="#">REFRESH</a></li>';
-					echo '<li><span>Garden11</span><a href="#">REFRESH</a></li>';
-					echo '<li><span>Garden12</span><a href="#">REFRESH</a></li>';
 			}
 
 		/**
@@ -99,11 +97,74 @@ class Index extends CommonClass
 		 * Display the alert and predict data from the table
 		 */
 		public function displayAlertPredictData($table_name =''){
+			
 			$whr_condition = '`Target_date` > date_sub(now(), interval 5 day)';
+			$search_query = $this->getFormField('search_query');
+			if($search_query !=''){
+				$whr_condition .= " AND ( UPPER (`Symbol`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= " UPPER (`Partners`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= " UPPER (`Prediction`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= " UPPER (`Detail`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= " UPPER (`Link`) LIKE UPPER('%$search_query%')";
+				$whr_condition .= " )";
+			}
+			
 			$table_name = ($table_name != '')?$table_name:$this->CFG['site']['alert_grid']['default'];
-			$row = $this->getTabelRecords($table_name,$this->CFG['site']['home']['limit'],false,'Target_date','ASC',$whr_condition);	
+			$row = $this->getTabelRecords($table_name,$this->CFG['site']['home']['limit'],false,'Target_date','ASC',$whr_condition);
 			$this->getAlertGridTemplate($row);
 		}
+		
+		/**
+		 * Display the alert and predict data from the table
+		 */
+		public function displayWatchListData($table_name ='',$search_query){
+			
+			//$whr_condition = '`Target_date` > date_sub(now(), interval 5 day)';
+			$whr_condition = '';
+			if($search_query != ''){
+				$whr_condition .= "UPPER (`Symbol`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= "UPPER (`KeyInfo`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= "UPPER (`Partners`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= "UPPER (`Email`) LIKE UPPER('%$search_query%') OR ";
+				$whr_condition .= "UPPER (`Action_needed`) LIKE UPPER('%$search_query%')";
+			}
+			
+			$table_name = ($table_name != '')?$table_name:$CFG['db']['tbl']['watch_list'];
+			$row = $this->getTabelRecords($table_name,$this->CFG['site']['home']['limit'],false,'start_date','ASC',$whr_condition);
+			$this->getWatchListTemplate($row);
+		}
+		
+		/**
+		 * form the content for the alert grid based on the record given
+		 */
+		 public function getWatchListTemplate($records){
+			 $content = '';
+			 if($records!='' && count($records) >0){
+				foreach ($records as $key=>$val){					
+					$content .= '<tr>';	
+					$content .= '<td>'.$val['Symbol'].'</td>';	
+					$content .= '<td>'.$val['KeyInfo'].'</td>';	
+					$content .= '<td>'.$val['Price'].'</td>';	
+					$content .= '<td>'.$val['Start_date'].'</td>';	
+					$content .= '<td>'.$val['Partners'].'</td>';
+					$content .= '<td>'.$val['EntryPoint'].'</td>';		
+					//$content .= '<td>'.$val['EntryDeviation'].'</td>';
+					$content .= '<td>'.$val['ExitPoint'].'</td>';
+					//$content .= '<td>'.$val['ExitDeviation'].'</td>';
+					$content .= '<td>'.$val['Email'].'</td>';	
+					$content .= '<td>'.$val['Action_needed'].'</td>';	
+					$content .= '<td>'.$val['CRE_ON'].'</td>';	
+					$content .= '<td>'.$val['CRE_BY'].'</td>';	
+					$content .= '<td>'.$val['LAST_UPDT_ON'].'</td>';	
+					$content .= '<td>'.$val['LAST_UPDT_BY'].'</td>';	
+					$content .= '</tr>';		
+				}
+			 }else{
+				 $content .= '<tr><td colspan="13">No Record Found</td></tr>';
+			 }
+			 echo $content;
+		 }
+		
 		
 		/**
 		 * form the content for the alert grid based on the record given
@@ -114,13 +175,11 @@ class Index extends CommonClass
 				foreach ($records as $key=>$val){					
 					$content .= '<tr>';	
 					$content .= '<td>'.$val['Symbol'].'</td>';	
-					$content .= '<td> - </td>';	
-					$content .= '<td> - </td>';	
+					$content .= '<td>'.$val['Partners'].'</td>';	
+					$content .= '<td>'.$val['Prediction'].'</td>';
+					$content .= '<td>'.$val['EntryPoint'].'</td>';	
+					$content .= '<td>'.$val['ExitPoint'].'</td>';					
 					$content .= '<td>'.$val['Target_date'].'</td>';	
-					$content .= '<td>'.$val['Partners'].'</td>';
-					$content .= '<td>'.$val['EntryPoint'].'</td>';		
-					$content .= '<td>'.$val['ExitPoint'].'</td>';
-					//$content .= '<td>'.$val['Prediction'].'</td>';
 					$content .= '<td>'.$val['Detail'].'</td>';	
 					$content .= '<td>'.$val['Link'].'</td>';	
 					$content .= '<td>'.$val['CRE_ON'].'</td>';	
@@ -238,6 +297,7 @@ $index->setFormField('table_name','');
 $index->setFormField('keywords','');
 $index->setFormField('grid_table_name','');
 $index->setFormField('grid_count','');
+$index->setFormField('search_query','');
 $index->setFormField('grid_table_names',implode(",",$CFG['site']['grid']['home']));
 $index->sanitizeFormInputs($_REQUEST);
 //Header Include
@@ -258,6 +318,9 @@ if($index->isFormPOSTed($_POST,'table_name'))
 }else if($index->isFormPOSTed($_POST,'keywords') && $index->getFormField('keywords') == "fetch_grid_record"){
 	$index->displayAlertPredictData($index->getFormField('grid_table_name'));
 	exit();
+}else if($index->isFormPOSTed($_POST,'keywords') && $index->getFormField('keywords') == "fetch_wtachlist_record"){
+	$index->displayWatchListData($CFG['db']['tbl']['watch_list'],$index->getFormField('search_query'));
+	exit();
 }
 //------------------------------------HTML code start from here -------->>>>>>>>//
 //Headr include
@@ -266,7 +329,7 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 <?php /* Top referesh start from here*/?> 
 <div class="header">
 	<div class="container1">
-		<div class="logo col-md-12 col-sm-12 col-xs-12 text-center">
+		<div class="logo text-center">
 			<a href="#"><img src="images/logo.png"/></a>
 			<span style="float:right"><a href="<?php echo getUrl('logout');?>">Logout</a></span>
 		</div>
@@ -280,17 +343,27 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 	</div>
 </div>
 <?php /* Load the grid*/?> 
-<div class="main">
+	<div class="main">
+	<!-- Textarea field starts here -->
+	<div class="container1">
+		<div class="col-md-6 col-sm-6 col-xs-12 pull-right">
+			<textarea cols="30" rows="8"></textarea>
+			<textarea cols="30" rows="8"></textarea>
+		</div>
+	</div>
+	<div style="clear:both"></div>
+	<!-- Textarea field ends here -->
+	
 	<!-- New Grid starts here -->
 	<div class="container1">		
-		<div class=" col-md-6 col-sm-6 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-12">
 		<span class="grid-heading">WatchList</span>
 		<div class="row-fluid">			
 			<div class=" col-md-6 col-sm-6 col-xs-12">
 				<div class="tab-top-sec grid-tab-top-sec">
 					<div class="serch-sec grid-serch-sec">
-							<input class="serch-input grid-search-input" type="text" placeholder="Type Symbol" />
-							<input type="button" class="serch-btn grid-serch-btn" value="Search Plant" />
+							<input class="serch-input grid-search-input" id="watch_list_input"  type="text" placeholder="Type Symbol" />
+							<input type="button" class="serch-btn grid-serch-btn" value="Search Plant" onclick="return watchSearch();" />
 						</div>
 				</div>
 			</div>
@@ -324,8 +397,8 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 							
 						</tr>
 					</thead>
-					<tbody class="dynamicdata"> 
-						<?php echo $index->displayAlertPredictData($CFG['db']['tbl']['watch_list']);?>									
+					<tbody class="dynamicdata" id="watchlist_div"> 
+						<?php echo $index->displayWatchListData($CFG['db']['tbl']['watch_list']);?>									
 					</tbody>
 				</table>
 				</div>
@@ -337,12 +410,13 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 			<div class=" col-md-6 col-sm-6 col-xs-12">
 				<div class="tab-top-sec grid-tab-top-sec">
 					<div class="serch-sec grid-serch-sec">
-							<input class="serch-input grid-search-input" type="text" placeholder="Type Symbol" />
-							<input type="button" class="serch-btn grid-serch-btn" value="Search Plant" />
+							<input class="serch-input grid-search-input" id="alert_list_input" type="text" placeholder="Type Symbol" />
+							<input type="button" class="serch-btn grid-serch-btn" value="Search Plant" onclick="fetchrecords($('#sel_option').val())"/>
 						</div>
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12">
+				<input type="hidden" name="sel_option" id="sel_option" value=""/>
 				<ul class="dis-line-option">
 					<!-- <li><a href="#" onclick="fetchrecords('<?php echo $CFG['db']['tbl']['alerts'];?>');">Alert</a></li>
 					<li><a href="#" onclick="fetchrecords('<?php echo $CFG['db']['tbl']['predictions'];?>');">Predict</a></li>
@@ -359,14 +433,13 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 					<thead>
 						<tr>
 							<th>Symbol</th>
-							<th>KeyInfo</th>
-							<th>Price</th>
-							<th>Start Date</th>
 							<th>Partners</th>
+							<th>Prediction</th>
 							<th>Entry Point</th>
-							<th>Exit Point</th>
-							<th>Email</th>
-							<th>Action Needed</th>
+							<th>Exit Point</th>		
+							<th>Target_date</th>
+							<th>Detail</th>
+							<th>Link</th>
 							<th>Created On</th>
 							<th>Created By</th>
 							<th>Last Updated on</th>
@@ -383,6 +456,7 @@ require_once($CFG['site']['project_path'].'includes/header.php');
 		</div>
 		
 	</div>
+	<div style="clear:both"></div>
 	<!-- New Grid ends here -->
 	<div class="container1">
 		<?php $index->getDataFromTable();?>
