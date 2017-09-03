@@ -207,6 +207,11 @@ class CommonClass
 					}				
 				return $row;
 			}
+		
+		public function insertTabelRecords($sql)
+		{
+				$result = mysqli_query($this->dbObj,$sql);
+		}
 			
 		/**
 		* To get the common error message

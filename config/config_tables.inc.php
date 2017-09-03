@@ -26,4 +26,5 @@ $CFG['db']['tbl']['alerts'] = 'alerts';
 $CFG['db']['tbl']['predictions'] = 'predictions';
 $CFG['db']['tbl']['shortideas'] = 'shortideas';
 $CFG['db']['tbl']['watch_list'] = 'watch_list';
+$CFG['db']['tbl']['info'] = 'info';
 ?>
