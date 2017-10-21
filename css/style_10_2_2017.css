@@ -1,8 +1,8 @@
 +body{
-	 font-family: "Arial Narrow";
+	 font-family: "Source Sans Pro";
 }
 p {
-  font-size: 7px;
+  font-size: 12px;
 }
 section {
     clear: both;
@@ -22,7 +22,7 @@ HEADER START
 	width:100%;
 }
 .logo img {
-  max-width: 100px;
+  max-width: 150px;
   padding: 6px 0 6px;
 }
 .dis-inline > li {
@@ -35,7 +35,7 @@ HEADER START
 .dis-inline span {
   color: #000000;
   display: block;
-  font-size: 7px;
+  font-size: 13px;
   margin: 0 0 6px;
 }
 .dis-inline > li {
@@ -47,7 +47,7 @@ HEADER START
   border-radius: 4px;
   color: #ffffff;
   display: inline-block;
-  font-size: 7px;
+  font-size: 13px;
   margin: 1px 0 0;
   padding: 10px 8px;
 }
@@ -66,7 +66,7 @@ HEADER START
     border-radius: 4px;
     color: #ffffff;
     display: inline-block ;
-    font-size: 7px;
+    font-size: 14px;
     margin: auto;
     padding: 10px 8px;
 	cursor:pointer;
@@ -76,7 +76,7 @@ HEADER START
 }
 .dis-line-option  .capturenotespan{
 	padding: 6px 2px;
-	font-size:7px;
+	font-size:12px;
 }
 .grid-search-input{
 	width: 58% !important;
@@ -116,7 +116,7 @@ HEADER START
     padding: 12px;
     border-radius: 4px;
     text-align: center;
-    font-size: 7px;
+    font-size: 16px;
 	position: absolute;
     width: 100%;
 }
@@ -139,7 +139,7 @@ HEADER START
   border-radius: 4px;
   color: #ffffff;
   float: right;
-  font-size: 10px;
+  font-size: 14px;
   padding: 5px 20px;
 }
 .serch-input {
@@ -156,7 +156,7 @@ HEADER START
   border-radius: 0 4px 5px 0;
   color: #ffffff;
   float: right;
-  font-size: 10px;
+  font-size: 14px;
   height: 35px;
   padding: 0;
   text-transform: capitalize;

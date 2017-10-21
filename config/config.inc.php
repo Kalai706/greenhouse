@@ -1,6 +1,9 @@
 <?php
- 
+session_start();
 ini_set('default_charset','UTF-8');
+// Turn off all error reporting
+error_reporting(0);
+//error_reporting(E_ALL);
 $CFG['parse_time']['start'] = explode(' ', microtime());
 //@todo improve time zone settings
 if (function_exists('date_default_timezone_set')) //dirty hack for < 5.1.0
@@ -39,10 +42,13 @@ $CFG['site']['project_path_relative'] = strrpos($CFG['site']['project_path_relat
 $CFG['site']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/')+1);
 
 require_once($CFG['site']['project_path'].'config/config_db.inc.php');
+require_once($CFG['site']['project_path'].'config/config.url.php');
 require_once($CFG['site']['project_path'].'config/config_tables.inc.php');
 require_once($CFG['site']['project_path'].'functions/dbConnection.php');
 require_once($CFG['site']['project_path'].'functions/function.php');
 
+//rewrite_mode
+$CFG['rewrite_mode'] =  'normal';
 //Path Settings
 $CFG['site']['image']['path'] = $CFG['site']['url'].'images/';
 $CFG['site']['css']['path'] = $CFG['site']['url'].'css/';
@@ -50,12 +56,12 @@ $CFG['site']['js']['path'] = $CFG['site']['url'].'js/';
 
 //Home Page grid tabels
 $CFG['site']['grid']['home'] = array('stg_garden1','stg_garden2','stg_garden3','stg_garden4','stg_garden5','stg_garden6');
-
+$CFG['site']['alert_grid']['default'] = 'alerts'; //default table to show when the page load at first time
 //Every Pages limit
 $CFG['site']['home']['limit'] = 30;
 
 //Pages desc limit
 $CFG['site']['home']['title'] = 30;
-$CFG['site']['home']['desc'] = 30;
+$CFG['site']['home']['desc'] = 300;
 $CFG['site']['home']['desc_pattern'] = '/[\x00-\x1F\x80-\xFF]/';
 ?>

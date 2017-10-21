@@ -44,7 +44,7 @@ class CommonClass
 		*/
 		public function __construct()
 			{
-				global $CFG, $db;
+				global $CFG, $db, $db2;
 				if (isset($CFG))
 					{
 						$this->CFG = $CFG;
@@ -53,6 +53,11 @@ class CommonClass
 					{
 						$this->setDBObject($db);						
 					}
+				if (isset($db2))
+					{
+						$this->setSecondDBObject($db2);						
+					}
+				
 				
 			} 
 
@@ -103,6 +108,17 @@ class CommonClass
 			{
 				$this->dbObj = $dbObj;
 			}
+		/**
+		 * CommonClass::setSecondDBObject()
+		 * To connect second database
+		 *
+		 * @param $dbObj2
+		 * @return
+		 **/
+		public function setSecondDBObject($dbObj)
+			{
+				$this->dbObj2 = $dbObj;
+			}
 			
 		/**
         * To check whether the form is posted
@@ -116,7 +132,23 @@ class CommonClass
 			{
 				return $form_submit_name ? isset($post_arr[$form_submit_name]) : $post_arr;
 			}
-
+		
+		/**
+		 * LoginFormHandler::saveUserVarsInSession()
+		 *
+		 * To save the user information in session
+		 *
+		 * @param 		string $ip ip address
+		 * @return 		void
+		 * @access 		public
+		 */
+		public function saveUserVarsInSession()
+			{
+				$_SESSION = array(); //reset any variables present
+				$_SESSION['user']['is_logged_in'] = true;
+				$_SESSION['user']['username'] = 'Arockia';
+			}	
+			
 	/**
         * To santize the form fields
         *
@@ -159,6 +191,11 @@ class CommonClass
 					}
 			}	
 			
+		public function getPreTabelName($pre,$table)
+			{
+				return ($pre) ? $this->CFG['db']['tbl_page_name'][$pre].$this->CFG['db']['tbl'][$table] : $this->CFG['db']['tbl'][$table];
+			}
+			
 		/**
 		 * To get the records from table
 		 * @param $table
@@ -171,10 +208,10 @@ class CommonClass
 		 * @access public  
 		 *
 		 */
-		public function getTabelRecords($table,$limit,$fields=false,$orderbyfield=false,$order="DESC",$cond=false,$groupby=false)
+		public function getTabelRecords($table,$limit,$fields=false,$orderbyfield=false,$order="DESC",$cond=false,$groupby=false,$dbObj='dbObj',$pre=false)
 			{	
-				$fields = ($fields) ? $fields : '*';
-				$sql = "SELECT ".$fields." FROM ".$this->CFG['db']['tbl'][$table];
+				$fields = ($fields) ? $fields : '*';				
+				$sql = "SELECT ".$fields." FROM ".$this->getPreTabelName($pre,$table);
 				if($cond)
 					$sql .= " WHERE ".$cond; 
 				if($groupby)	
@@ -183,8 +220,13 @@ class CommonClass
 					$sql .= " ORDER BY ".$orderbyfield." ".$order;
 				if($limit)
 					$sql .= " LIMIT ".$limit;
-				//echo $sql;die("res");
-				$result = mysqli_query($this->dbObj,$sql);
+				//echo $sql;echo "<br>";
+				if($dbObj == "dbObj"){
+					$result = mysqli_query($this->dbObj,$sql);
+				}else{
+					$result = mysqli_query($this->dbObj2,$sql);
+				}
+				
 				$row = false;
 				while($results=mysqli_fetch_assoc($result))
 					{
@@ -192,6 +234,103 @@ class CommonClass
 					}				
 				return $row;
 			}
+		
+		public function insertTabelRecords($sql)
+		{
+				$result = mysqli_query($this->dbObj,$sql);
+		}
+			
+		public function updateTabelRecords($sql)
+		{
+				$result = mysqli_query($this->dbObj,$sql);
+		}
+		
+		public function deleteTabelRecords($sql)
+		{
+				$result = mysqli_query($this->dbObj,$sql);
+		}
+		/**
+		* To get the common error message
+		*
+		* Use this method to get the common error message. Call this
+		* method in error page block to show the common error message
+		*
+		* @return 		string $this->common_error_message
+		* @access 		public
+		*/
+		public function getCommonErrorMsg()
+			{
+				return $this->common_error_message;
+			}
+			
+			/**
+		* To set the common error message
+		*
+		* Use this method to set the common error message. After
+		* submitting form, call this method to set the error message
+		*
+		* @param 		string $err_msg common error message
+		* @return 		string
+		* @access 		public
+		*/
+		public function setCommonErrorMsg($err_msg)
+			{
+				$this->common_error_message = $err_msg;
+			}
+			
+		public function getAjaxTemplate($file_name){
+			echo file_get_contents($file_name);
+		}
+		
+		
+		
+		/**
+		 * To get Top Referesh header
+		 */
+		public function getRefresh()
+			{
+				$i = 1;
+				foreach($this->CFG['site']['grid']['home'] as $key=>$val){
+					
+						switch($i){
+							case 1:
+								echo '<li><a href="'.getUrl('garden_details').'">Primary</a></li>';
+							break;
+							case 2:
+								echo '<li><a href="'.getUrl('garden_details_sec').'">Garden2</a></li>';
+							break;
+							case 6:
+								echo '<li><a href="'.getUrl('garden_details_six').'">Garden6</a></li>';
+							break;
+							default:
+								echo '<li><a href="javascript:void(0)" id="refreshrecord'.$i.'" onclick="refreshrecords('.$val.');">Garden'.$i.'</a></li>';
+							break;
+						}
+						/* if($i==1){ ?>
+							<li style="box-sizing:;"><a href="<?php echo getUrl('garden_details');?>">Primary</a></li>
+						<?php } else {?>
+							<li style="box-sizing:;"><a href="javascript:void(0)" id="refreshrecord<?php echo $i;?>" onclick="refreshrecords('<?php echo $val;?>');">Garden<?php echo $i?></a></li>
+						<?php } */?>
+					<?php
+						if($i==5){
+							?>
+							</ul>
+								<div class="logo text-center col-md-2 col-sm-2 col-xs-2" style="width:auto;">
+									<a href="<?php echo getUrl('ciasdata');?>"><img src="images/logo.png"></a>
+								</div>
+							<ul class="dis-inline col-md-5 col-sm-5 col-xs-5" style="margin-top:18px;;padding-left:0px;">
+							<?php
+						}
+						$i++; 
+					}
+					
+					/** ToDo : Temp added the 6 more header button to reflect the WF Design**/
+					echo '<li><a href="#">Garden7</a></li>';
+					echo '<li><a href="#">Garden8</a></li>';
+					echo '<li><a href="#">Garden9</a></li>';
+					echo '<li><a href="#">Garden10</a></li>';
+			}
+
 	}
 
 

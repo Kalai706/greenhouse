@@ -35,3 +35,23 @@
 		<link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/><![endif]-->
 	</head>
 	<body>
+	    
+	    <?php /* Top referesh start from here*/?> 
+<?php if(isMember()){?>
+<div class="header">
+	<div class="container1">
+		<!-- <div class="logo text-center">			
+			<span style="float:right"><a href="<?php echo getUrl('logout');?>">Logout</a></span>
+		</div> -->
+		<div class="menu-bar-sec col-md-12 col-sm-12 col-xs-12">
+			<nav class="navbar">
+				<ul class="dis-inline col-md-5 col-sm-5 col-xs-5" style="margin-top:18px;text-align:right;padding-right:0px;">
+					 <?php $index->getRefresh();?>
+				</ul>
+				<span style="float:right"><a href="<?php echo getUrl('logout');?>">Logout</a></span>
+			</nav>
+		</div>
+	</div>
+</div>
+<?php } ?>
+	    
