@@ -6,19 +6,19 @@
  * 
  */ 
 ?>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="<?php echo $CFG['site']['js']['path'];?>jquery.js"></script> -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo $CFG['site']['js']['path'];?>jquery.slimscroll.js"></script>
 <link href="<?php echo $CFG['site']['css']['path'];?>jquery-ui.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
-<!--
 		function loaddata(table_name,newcount,search_val)
 			{
 			    $.ajax
 			    ({
 					
 			        type: "POST",
-			        url: "index.php",
+			        url: "ciasdata.php",
 			        data: { 'keywords': search_val,'table_name':table_name,'grid_count':newcount  },
 			        success: function(msg)
 				        {   
@@ -36,7 +36,7 @@
 			    $.ajax
 			    ({					
 			        type: "POST",
-			        url: "index.php",
+			        url: "ciasdata.php",
 			        data: { 'keywords': '','table_name':table_name,'grid_count':newcount  },
 			        success: function(msg)
 			        	{
@@ -67,7 +67,7 @@
 			    $.ajax
 			    ({					
 			        type: "POST",
-			        url: "index.php",
+			        url: "ciasdata.php",
 			        data: { 'keywords': newval,'gardencount':newcount  },
 			        success: function(msg)
 			        	{
@@ -80,6 +80,42 @@
 			        	}
 			    });
 			}
+		function fetchrecords(table_name)
+			{
+				var search_query = $("#alert_list_input").val();				
+				$("#sel_option").val(table_name);
+			    $.ajax
+			    ({					
+			        type: "POST",
+			        url: "ciasdata.php",
+			        data: { 'keywords': 'fetch_grid_record','grid_table_name':table_name,'search_query':search_query},
+			        success: function(msg)
+			        	{
+			        		$(".dynamicdatagrid").html(msg);
+			        	}
+			    });
+			}    
+			
+		function optionSearch()
+		{
+			fetchrecords($('#sel_option').val());
+		}
+			
+		function watchSearch()
+		{
+			var search_query = $("#watch_list_input").val();
+			$.ajax
+			    ({					
+			        type: "POST",
+			        url: "ciasdata.php",
+			        data: { 'keywords': 'fetch_wtachlist_record','search_query':search_query},
+			        success: function(msg)
+			        	{
+			        		$("#watchlist_div").html(msg);
+			        	}
+			    });
+		}
+
 		$(document).ready(function() {
 			setTimeout(function() {
 			    $("#refreshrecord1").trigger('click');
@@ -137,6 +173,5 @@
           railColor: '#1ccb6b'
       });
     });
-//-->
 </script>
 </body>
