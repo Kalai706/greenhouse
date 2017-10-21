@@ -35,6 +35,10 @@ $CFG['db']['tbl']['notes'] = 'notes';
  */
 $CFG['db']['tbl_page_name']['home']               = '';
 $CFG['db']['tbl_page_name']['garden_details']     = '';
+$CFG['db']['tbl_page_name']['garden_details_one'] = '';
 $CFG['db']['tbl_page_name']['garden_details_sec'] = '';
+$CFG['db']['tbl_page_name']['garden_details_third'] = '';
+$CFG['db']['tbl_page_name']['garden_details_fourth'] = '';
+$CFG['db']['tbl_page_name']['garden_details_fifth'] = '';
 $CFG['db']['tbl_page_name']['garden_details_six'] = '';
 ?>

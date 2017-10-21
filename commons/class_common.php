@@ -294,16 +294,16 @@ class CommonClass
 					
 						switch($i){
 							case 1:
-								echo '<li><a href="'.getUrl('garden_details').'">Primary</a></li>';
+								echo '<li><a target="_blank" href="'.getUrl('garden_details').'">Primary</a></li>';
 							break;
 							case 2:
-								echo '<li><a href="'.getUrl('garden_details_sec').'">Garden2</a></li>';
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_sec').'">Garden2</a></li>';
 							break;
 							case 6:
-								echo '<li><a href="'.getUrl('garden_details_six').'">Garden6</a></li>';
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_six').'">Garden6</a></li>';
 							break;
 							default:
-								echo '<li><a href="javascript:void(0)" id="refreshrecord'.$i.'" onclick="refreshrecords('.$val.');">Garden'.$i.'</a></li>';
+								echo '<li><a target="_blank" href="javascript:void(0)" id="refreshrecord'.$i.'" onclick="refreshrecords('.$val.');">Garden'.$i.'</a></li>';
 							break;
 						}
 						/* if($i==1){ ?>

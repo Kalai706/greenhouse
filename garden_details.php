@@ -115,7 +115,7 @@ class Index extends GardenDetails
 					                ?>                
 									<td class="th-head2">
 										<?php  																			
-										echo '<a target="_blank" href="'.$myresult['link'].'">'.preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', substr($myresult['description'], 0, $this->CFG['site']['home']['desc'])).'&nbsp;&nbsp; </a>';?>
+										echo '<a target="_blank" href="'.$myresult['link'].'">'.strip_tags($myresult['title']).'&nbsp;&nbsp; </a>';?>
 									</td>
 									<div class="dialog1<?php echo $y1; ?>" style="display: none;text-align: center;">
 		                				<?php echo preg_replace($this->CFG['site']['home']['desc_pattern'], ' ', $myresult['description']); ?>
@@ -164,7 +164,7 @@ class Index extends GardenDetails
 				$where_cond = false;
 				if($this->fields_arr['keywords'])
 					$where_cond = 'plant_code LIKE \'%'.$this->fields_arr['keywords'].'%\' || description LIKE \'%'.$this->fields_arr['keywords'].'%\'';				
-				$row = $this->getTabelRecords($this->fields_arr['table_name'],$this->CFG['site']['home']['limit'],false,'LAST_UPDT_ON','DESC',$where_cond,false,'dbObj','garden_details_sec');
+				$row = $this->getTabelRecords($this->fields_arr['table_name'],$this->CFG['site']['home']['limit'],false,'LAST_UPDT_ON','DESC',$where_cond,false,'dbObj','garden_details');
 				if($row){
 					$this->loadGridData($this->fields_arr['grid_count'],$row);
 				}	
