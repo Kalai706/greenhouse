@@ -33,10 +33,10 @@ class Index extends GardenDetails
 				<div class=" col-md-4 col-sm-4 col-xs-12">
 					<div class="tab-top-sec">		 
 						<span class="title-gar">Garden<?php echo $link_id;?></span>
-						<button class="links-btn" value="Link" onclick="loadallrecords('<?php echo $link_id;?>','2');" >Link</button>			
+						<button class="links-btn" value="Link" onclick="loadallrecords('<?php echo $link_id;?>');" >Link</button>			
 						<div class="serch-sec">
 							<input class="serch-input" type="text" placeholder="Plant Name" name="plantname<?php echo $link_id;?>" id="plantname<?php echo $link_id;?>" />
-							<input type="button" class="serch-btn" value="Search Plant" onclick="loaddata('<?php echo $val;?>','<?php echo $link_id;?>',$('#plantname<?php echo $link_id;?>').val(),'2');" />
+							<input type="button" class="serch-btn" value="Search Plant" onclick="loaddata('<?php echo $val;?>','<?php echo $link_id;?>',$('#plantname<?php echo $link_id;?>').val());" />
 						</div>
 					</div>		
 					<div id="<?php echo $val;?>">						
@@ -62,9 +62,8 @@ class Index extends GardenDetails
 				$link_id = 1;				
 				//pr($this->CFG['site']['grid']['home']);die("test");
 				foreach($this->CFG['site']['grid']['home'] as $key=>$val)
-					{
-						
-						$row = $this->getTabelRecords($val,$this->CFG['site']['home']['limit'],false,false,"DESC",false,false,"dbobj2","garden_details_six");	
+					{						
+						$row = $this->getTabelRecords($val,$this->CFG['site']['home']['limit'],false,false,'DESC',false,false,'dbObj','garden_details_three');	
 						if($row == ''){
 							$this->getGrid($row,$val,$link_id,"No Record Found");
 						}else{
@@ -163,7 +162,7 @@ class Index extends GardenDetails
 				$where_cond = false;
 				if($this->fields_arr['keywords'])
 					$where_cond = 'plant_code LIKE \'%'.$this->fields_arr['keywords'].'%\' || description LIKE \'%'.$this->fields_arr['keywords'].'%\'';
-				$row = $this->getTabelRecords($this->fields_arr['table_name'],$this->CFG['site']['home']['limit'],false,'LAST_UPDT_ON','DESC',$where_cond,false,'dbObj2','garden_details_six');
+				$row = $this->getTabelRecords($this->fields_arr['table_name'],$this->CFG['site']['home']['limit'],false,'LAST_UPDT_ON','DESC',$where_cond,false,'dbObj','garden_details_three');
 				if($row){
 					$this->loadGridData($this->fields_arr['grid_count'],$row);
 				}	

@@ -55,7 +55,7 @@ $CFG['site']['css']['path'] = $CFG['site']['url'].'css/';
 $CFG['site']['js']['path'] = $CFG['site']['url'].'js/';
 
 //Home Page grid tabels
-$CFG['site']['grid']['home'] = array('stg_garden1','stg_garden2','stg_garden3','stg_garden4','stg_garden5','stg_garden6');
+$CFG['site']['grid']['home'] = array('stg_garden1','stg_garden2','stg_garden3','stg_garden4','stg_garden5','stg_garden6','stg_garden7','stg_garden8','stg_garden9','stg_garden10');
 $CFG['site']['alert_grid']['default'] = 'alerts'; //default table to show when the page load at first time
 //Every Pages limit
 $CFG['site']['home']['limit'] = 30;

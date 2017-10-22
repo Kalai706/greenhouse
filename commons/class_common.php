@@ -193,7 +193,7 @@ class CommonClass
 			
 		public function getPreTabelName($pre,$table)
 			{
-				return ($pre) ? $this->CFG['db']['tbl_page_name'][$pre].$this->CFG['db']['tbl'][$table] : $this->CFG['db']['tbl'][$table];
+				return (isset($this->CFG['db']['tbl_page_name'][$pre]) && $this->CFG['db']['tbl_page_name'][$pre]!='') ? $this->CFG['db']['tbl']['table_prefix'].$this->CFG['db']['tbl_page_name'][$pre].'_'.$this->CFG['db']['tbl'][$table] : $this->CFG['db']['tbl']['table_prefix'].$this->CFG['db']['tbl'][$table];
 			}
 			
 		/**
@@ -299,8 +299,29 @@ class CommonClass
 							case 2:
 								echo '<li><a target="_blank" href="'.getUrl('garden_details_sec').'">Garden2</a></li>';
 							break;
+							case 3:
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_three').'">Garden3</a></li>';
+							break;
+							case 4:
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_four').'">Garden4</a></li>';
+							break;
+							case 5:
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_five').'">Garden5</a></li>';
+							break;
 							case 6:
 								echo '<li><a target="_blank" href="'.getUrl('garden_details_six').'">Garden6</a></li>';
+							break;
+							case 7:
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_seven').'">Garden7</a></li>';
+							break;
+							case 8:
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_eight').'">Garden8</a></li>';
+							break;
+							case 9:
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_nine').'">Garden9</a></li>';
+							break;
+							case 10:
+								echo '<li><a target="_blank" href="'.getUrl('garden_details_ten').'">Garden10</a></li>';
 							break;
 							default:
 								echo '<li><a target="_blank" href="javascript:void(0)" id="refreshrecord'.$i.'" onclick="refreshrecords('.$val.');">Garden'.$i.'</a></li>';
@@ -323,12 +344,6 @@ class CommonClass
 						}
 						$i++; 
 					}
-					
-					/** ToDo : Temp added the 6 more header button to reflect the WF Design**/
-					echo '<li><a href="#">Garden7</a></li>';
-					echo '<li><a href="#">Garden8</a></li>';
-					echo '<li><a href="#">Garden9</a></li>';
-					echo '<li><a href="#">Garden10</a></li>';
 			}
 
 	}

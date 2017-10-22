@@ -64,7 +64,7 @@ class Index extends GardenDetails
 				foreach($this->CFG['site']['grid']['home'] as $key=>$val)
 					{
 						
-						$row = $this->getTabelRecords($val,$this->CFG['site']['home']['limit'],false,false,"DESC",false,false,"dbobj2","garden_details_six");	
+						$row = $this->getTabelRecords($val,$this->CFG['site']['home']['limit'],false,false,"DESC",false,false,"dbobj2","garden_details_seven");	
 						if($row == ''){
 							$this->getGrid($row,$val,$link_id,"No Record Found");
 						}else{
@@ -163,7 +163,7 @@ class Index extends GardenDetails
 				$where_cond = false;
 				if($this->fields_arr['keywords'])
 					$where_cond = 'plant_code LIKE \'%'.$this->fields_arr['keywords'].'%\' || description LIKE \'%'.$this->fields_arr['keywords'].'%\'';
-				$row = $this->getTabelRecords($this->fields_arr['table_name'],$this->CFG['site']['home']['limit'],false,'LAST_UPDT_ON','DESC',$where_cond,false,'dbObj2','garden_details_six');
+				$row = $this->getTabelRecords($this->fields_arr['table_name'],$this->CFG['site']['home']['limit'],false,'LAST_UPDT_ON','DESC',$where_cond,false,'dbObj2','garden_details_seven');
 				if($row){
 					$this->loadGridData($this->fields_arr['grid_count'],$row);
 				}	

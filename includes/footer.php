@@ -21,7 +21,8 @@
 			    ({
 					
 			        type: "POST",
-			        url: "ciasdata.php",
+			        //url: "ciasdata.php",
+			        url: <?php echo '"'.basename($_SERVER['PHP_SELF']).'"';?>,
 			        data: { 'keywords': search_val,'table_name':table_name,'grid_count':newcount,'db':db  },
 			        success: function(msg)
 				        {   
